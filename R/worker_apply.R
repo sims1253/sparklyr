@@ -519,7 +519,7 @@ spark_worker_apply <- function(sc, config) {
         # cast column to correct type, for instance, when dealing with NAs.
         for (i in seq_along(df)) {
           target_type <- funcContext$column_types[[i]]
-          if (!is.null(target_type) && class(df[[i]]) != target_type) {
+          if (!is.null(target_type) && !inherits(df[[i]], target_type)) {
             df[[i]] <- do.call(
               paste("as", target_type, sep = "."),
               args = list(df[[i]])
